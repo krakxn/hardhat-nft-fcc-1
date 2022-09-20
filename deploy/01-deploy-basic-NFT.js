@@ -1,5 +1,5 @@
 const { network } = require("hardhat")
-const { develompentChains } = require("../helper-hardhat-config")
+const { developmentChains } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
@@ -15,7 +15,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     })
 
     if (
-        !develompentChains.includes(network.name) &&
+        !developmentChains.includes(network.name) &&
         process.env.ETHERSCAN_API_KEY
     ) {
         log("Verifyin....!")
@@ -23,3 +23,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     }
     log("------------------------------------------")
 }
+module.exports.tags = ["all", "basicnft", "main"]
