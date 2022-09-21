@@ -1,5 +1,5 @@
 const { assert } = require("chai")
-const { network, deployments, ethers } = require("hardhat")
+const { network, deployments, ethers, getNamedAccounts } = require("hardhat")
 const { developmentChains } = require("../helper-hardhat-config")
 
 /**
@@ -11,10 +11,11 @@ const { developmentChains } = require("../helper-hardhat-config")
 !developmentChains.includes(network.name)
     ? describe.skip
     : describe("Basic NFT Unit Tests", function () {
+          let basicNft, deployer
           beforeEach(async function () {
               deployer = (await getNamedAccounts()).deployer
-              await deployments.fixture(["all"])
-              basicNFT = await ethers.getContract("basicNft", deployer)
+              await deployments.fixture(["mocks", "basicNft"])
+              basicNft = await ethers.getContract("basicNft")
           })
           describe("Construtor", () => {
               it("Initilizes the NFT Correctly.", async () => {
